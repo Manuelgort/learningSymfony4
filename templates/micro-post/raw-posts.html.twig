@@ -1,0 +1,68 @@
+<img data-src="holder.js/32x32?text=gf&bg=e83e8c&fg=fff&size=8" alt="" class="mr-2 rounded">
+<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+    <span class="d-block">
+        <a href="{{ path('micro_post_user', {'username': post.user.username }) }}">
+            <strong class="text-gray-dark">@{{ post.user.username }}</strong>
+        </a>
+        <small>{{ post.time|date('d/m/y') }}</small>
+    </span>
+    {{ post.id }}
+    {{ post.text }}
+</p>
+{% set isLiked = post.getLikedBy.contains(app.user) %}
+<div class="pt-2">
+    <button style="display: {% if not isLiked  %}block{% else %}none{% endif %}"
+            class="btn btn-outline-secondary btn-sm" id="like{{ post.id }}">Like
+        <span class="badge badge-light" id="likes-like">{{ post.getLikedBy.count }}</span>
+    </button>
+    <button style="display: {% if isLiked  %}block{% else %}none{% endif %}"
+            class="btn btn-outline-secondary btn-sm" id="unlike{{ post.id }}">unLike
+        <span class="badge badge-light" id="likes-unlike">{{ post.getLikedBy.count }}</span>
+    </button>
+</div>
+
+<script>
+    var likeButton = document.getElementById('like{{ post.id }}');
+    var unlikeButton = document.getElementById('unlike{{ post.id }}');
+
+    addOnClick(
+        likeButton,
+        unlikeButton,
+        document.getElementById('likes-unlike'),
+        '{{ path('Likes_like',{'id': post.id}) }}'
+    );
+    addOnClick(
+        unlikeButton,
+        likeButton,
+        document.getElementById('likes-like'),
+        '{{ path('Likes_unlike',{'id': post.id}) }}'
+    );
+
+    function switchButtons(button, oppositeButton) {
+        button.disabled = false;
+        button.style.display = 'none';
+        oppositeButton.style.display = 'block';
+    }
+
+    function addOnClick(button, oppositeButton, likeCount, path)
+    {
+        button.addEventListener('click', function (event)
+        {
+            {% if not app.user %}
+                return window.location.replace('{{ path('user_register') }}');
+            {% endif %}
+            button.disabled = true;
+
+            fetch(path, {'credentials':'include'}).then(function(response){
+                response.json().then(function (json) {
+                    likeCount.innerText = json.count;
+                    switchButtons(button, oppositeButton);
+                })
+            }).catch(function () {
+                switchButtons(button, oppositeButton);
+            });
+            event.preventDefault();
+        });
+    }
+
+</script>

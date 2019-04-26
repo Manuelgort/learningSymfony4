@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if user %}
+        <h5>Gefeliciteerd!</h5>
+        <p>Uw account is geaccepteerd! U kunt nu inloggen via <a href="{{ path('security_login') }}">hier</a> </p>
+
+    {% else %}
+        <p>Oeps! Er is iet mis gegaan controleer uw E-mailBox!</p>
+
+    {% endif %}
+
+
+{% endblock %}

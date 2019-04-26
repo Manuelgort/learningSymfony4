@@ -1,0 +1,11 @@
+<h3>Welkom bij mooiste plekjes</h3>
+
+Hello {{ user.fullName }}!
+
+Je bent nu geregistreert bij <a href="https://mooisteplekjes.nl">mooiste plekjes.</a><br><br>
+
+Accepteer uw account eerst voor u kunt inloggen via deze  <a href="{{ url('security_confirm',{'token': user.confirmationtoken}) }}">knop</a>
+
+Om in te loggen ga naar deze "<a href="{{ url('security_login') }}">Inlog pagina</a>"
+
+Thanks team Mooiste Plekjes

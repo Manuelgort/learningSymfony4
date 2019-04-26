@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('micro-post/raw-posts.html.twig',{'post':post}) }}
+
+    {% set isLiked = post.getLikedBy.contains(app.user) %}
+
+    <div class="pt-2">
+        <button style="display: {% if not isLiked  %}block{% else %}none{% endif %}"
+                class="btn btn-outline-secondary btn-sm" id="like">Like
+        <span class="badge badge-light" id="likes_like">{{ post.getLikedBy.count }}</span>
+        </button>
+        <button style="display: {% if isLiked  %}block{% else %}none{% endif %}"
+                class="btn btn-outline-secondary btn-sm" id="like">unLike
+            <span class="badge badge-light" id="likes_unlike">{{ post.getLikedBy.count }}</span>
+        </button>
+    </div>
+
+{% endblock %}

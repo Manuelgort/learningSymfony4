@@ -1,0 +1,24 @@
+index:
+    path: /
+    controller: App\Controller\MicroPostController::index
+micro_post_add:
+    path: /add
+    controller: App\Controller\MicroPostController::add
+micro_post_edit:
+    path: /edit/{id}
+    controller: App\Controller\MicroPostController::edit
+micro_post_delete:
+    path: /delete/{id}
+    controller: App\Controller\MicroPostController::delete
+micro_post_user:
+    path: /user/{username}
+    controller: App\Controller\MicroPostController::userPost
+Likes_like:
+    path: /like/{id}
+    controller: App\Controller\LikesController::like
+Likes_unlike:
+    path: /unlike/{id}
+    controller: App\Controller\LikesController::unlike
+PostLink:
+    path: /postlink/{id}
+    controller: App\Controller\MicroPostController::PostLink

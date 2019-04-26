@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: gort
+ * Date: 2019-02-07
+ * Time: 10:27
+ */
+
+namespace App\Event;
+
+
+use App\Entity\User;
+use Symfony\Component\EventDispatcher\Event;
+
+class UserRegisterEvent extends Event
+{
+
+    const NAME = 'user.register';
+
+    /**
+     * @var User
+     */
+    private $registeredUser;
+
+    public function __construct( User $registeredUser)
+    {
+        $this->registeredUser = $registeredUser;
+    }
+
+
+    /**
+     * @return User
+     */
+    public function getRegisteredUser(): User
+    {
+        return $this->registeredUser;
+    }
+}
